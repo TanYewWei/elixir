@@ -476,7 +476,7 @@ handle_comp_op([$:|Rest], Line, Op, Scope, Tokens) when hd(Rest) /= $: ->
 handle_comp_op(Rest, Line, Op, Scope, Tokens) ->
   tokenize(Rest, Line, Scope, add_token_with_nl({ comp_op, Line, Op }, Tokens)).
 
-handle_op([$:|Rest], Line, Op, Scope, Tokens) when hd(Rest) /= $: ->
+handle_op([$:|Rest], Line, Op, Scope, Tokens) when hd(Rest) /= $:, Op /= '|' ->
   verify_kw_and_space(Line, Op, Rest, Scope),
   tokenize(Rest, Line, Scope, [{ kw_identifier, Line, Op }|Tokens]);
 

@@ -131,3 +131,23 @@ chars_test() ->
   [{number,1,43981}]   = tokenize("?\\x{abcd}"),
   [{number,1,703710}]  = tokenize("?\\x{abcde}"),
   [{number,1,1092557}] = tokenize("?\\x{10abcd}").
+
+cons_test() ->
+  [{'[',1}, 
+   {number,1,8},
+   {'|',1},
+   {number,1,9},
+   {']',1}] = tokenize("[8|9]"),
+  
+  [{'[',1},
+   {number,1,8},
+   {'|',1},
+   {atom,1,binary},
+   {'.',1},
+   {paren_identifier,1,bin_to_list},
+   {'(',1},
+   {'<<',1},
+   {number,1,9},
+   {'>>',1},
+   {')',1},
+   {']',1}] = tokenize("[8|:binary.bin_to_list(<<9>>)]").
